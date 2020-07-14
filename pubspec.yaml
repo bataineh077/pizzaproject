@@ -28,11 +28,13 @@ dependencies:
  # google_maps_flutter: ^0.5.28+1
  # google_maps_place_picker: ^0.9.4
   location: ^3.0.2
-  giffy_dialog: ^1.7.0
   faker: ^1.2.1
   outline_material_icons: ^0.1.1
   shared_preferences: ^0.5.8
-
+  maps_launcher: ^1.2.1
+  get_mac: ^0.0.1
+  http:
+  connectivity: ^0.4.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -61,6 +63,7 @@ flutter:
     - assets/calendar.png
     - assets/shield.png
     - assets/chat.png
+    - assets/phone.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

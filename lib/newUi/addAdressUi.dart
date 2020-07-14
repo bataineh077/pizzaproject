@@ -38,21 +38,21 @@ class _AddAdressUiState extends State<AddAdressUi> {
               title: TextFormField(
                 controller: _lat,
                 decoration: InputDecoration(
-                    hintText: 'Lat'
+                    hintText: 'Address'
                 ),
               ),
-              leading: Text('Lat',style: TextStyle(fontSize: 18),),
+              leading: Text('Address',style: TextStyle(fontSize: 18),),
             ),
 
-            ListTile(
-              title: TextFormField(
-                controller: _long,
-                decoration: InputDecoration(
-                    hintText: 'Lng'
-                ),
-              ),
-              leading: Text('Lng',style: TextStyle(fontSize: 18),),
-            ),
+//            ListTile(
+//              title: TextFormField(
+//                controller: _long,
+//                decoration: InputDecoration(
+//                    hintText: 'Lng'
+//                ),
+//              ),
+//              leading: Text('Lng',style: TextStyle(fontSize: 18),),
+//            ),
             RaisedButton(onPressed: ()async{
 
             _getPrefs();
@@ -60,8 +60,10 @@ class _AddAdressUiState extends State<AddAdressUi> {
 
 
           setState(() {
-            sharedPrefs.setString('${_name.text}', '${_lat.text.trim()},${_long.text.trim()}'.trim());
-            print(' ${sharedPrefs.getKeys()} : ${sharedPrefs.get('ta')}');
+           // sharedPrefs.setString('${_name.text}', '${_lat.text.trim()},${_long.text.trim()}'.trim());
+            sharedPrefs.setString('${_name.text}', '${_lat.text}');
+
+           // print(' ${sharedPrefs.getKeys()} : ${sharedPrefs.get('ta')}');
 
           });
 
@@ -75,12 +77,13 @@ class _AddAdressUiState extends State<AddAdressUi> {
                 if (snapshot.hasData) {
                   return ListView.builder(
                     shrinkWrap: true,
+                    physics: ScrollPhysics(),
                     itemCount: sharedPrefs.getKeys().length,
                       itemBuilder: (BuildContext context, int index){
                         return
                           Column(
                             children: [
-                              Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              Wrap(crossAxisAlignment: WrapCrossAlignment.center,
                                 children: [
                                   Text('${snapshot.data[index]} : ',
                                     style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold ),),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get_mac/get_mac.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:pizza/newUi/addAdressUi.dart';
 import 'package:pizza/newUi/running.dart';
@@ -17,8 +19,18 @@ class _NewHomeState extends State<NewHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
+
+
+
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Color(0xFFF5F6FA),
@@ -168,7 +180,8 @@ padding: EdgeInsets.all(0),
 
         children: [
           Container(
-            height: MediaQuery.of(context).size.height/6,
+            //TODO changable
+            height: MediaQuery.of(context).size.height/5.5,
 
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -264,20 +277,25 @@ padding: EdgeInsets.all(0),
              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
              children: [
                Image.asset('assets/chat.png',height: 55,width: 55,fit: BoxFit.cover,),
-               RichText(
-                 text: TextSpan(
-                     children: [
-                       TextSpan(text: 'Runner Support \n',
-                         style: TextStyle(color: Color(0xFF0097DC).withOpacity(0.75),fontSize: 16),
-                       ),
-
-                       TextSpan(text: 'Here to help!',
-                         style: TextStyle(color: Colors.grey,height: 1.7,fontSize: 10,
+               Padding(
+                 padding: const EdgeInsets.only(right: 63),
+                 child: RichText(
+                   text: TextSpan(
+                       children: [
+                         TextSpan(text: 'Runner Support \n',
+                           style: TextStyle(color: Color(0xFF0097DC).withOpacity(0.75),fontSize: 16),
                          ),
-                       ),
-                     ]
+
+                         TextSpan(text: 'Here to help!',
+                           style: TextStyle(color: Colors.grey,height: 1.7,fontSize: 10,
+                           ),
+                         ),
+                       ]
+                   ),
                  ),
                ),
+
+               Image.asset('assets/phone.png',height: 45,width: 45,fit: BoxFit.cover,),
              ],
            ),
         ),
