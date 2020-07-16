@@ -6,6 +6,10 @@ import 'package:pizza/component/runnerCard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Running extends StatefulWidget {
+
+  String resturantName , address , user , userAddress,orders;
+
+  Running({this.resturantName,this.user,this.address,this.userAddress,this.orders});
   @override
   _RunningState createState() => _RunningState();
 }
@@ -46,12 +50,12 @@ class _RunningState extends State<Running> {
            RunnerCardFirst(hight: height/1.1,
              icon1: OMIcons.call,
              icon2: Icons.chat_bubble_outline,
-             name: 'Zack Anderson',
+             name: '${widget.user}',
              subName: '0-50 Favors',
-             address: '1222 Belven Street , 7866',
+             address: '${widget.userAddress}',
              addressNote: 'Leave items at the door',
              note: 'Please place items at the end of the driveway'
-                 '\n thank you',
+                 '\n thank you ',
              secound: false,
              image: 'assets/person.png',
            ),
@@ -59,12 +63,11 @@ class _RunningState extends State<Running> {
             RunnerCardFirst(hight: height*1.2,
               icon1: OMIcons.call,
               icon2: OMIcons.search,
-              name: 'Panda Express',
+              name: '${widget.resturantName}',
               //subName: '0-50 Favors',
-              address: 'Interstate 35, 78666',
+              address: '${widget.address}',
               addressNote: 'Leave items at the door',
-              note: 'Please place items at the end of the driveway'
-                  '\n thank you',
+              note: '${widget.orders}',
               secound: true,
               image: 'assets/pin.png',
             ),
@@ -126,7 +129,7 @@ child: FlatButton(
                           return
                             Wrap(
                               children: [
-                                Row(
+                                Wrap(
                                   children: [
                                     Text('${snapshot.data[index]} : ',
                                       style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold ),),

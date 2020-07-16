@@ -1,5 +1,10 @@
 
+import 'dart:math';
+
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:pizza/component/dataRes&Cus.dart';
+import 'package:pizza/component/foodMenu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AddAdressUi extends StatefulWidget {
@@ -14,11 +19,21 @@ class _AddAdressUiState extends State<AddAdressUi> {
   TextEditingController _long = TextEditingController();
 
   SharedPreferences sharedPrefs;
+
+
+  String RestName , Restaddress , user =". .",
+      userAddress,orders = '';
+
+  TextStyle style = TextStyle(fontSize: 15,fontWeight: FontWeight.bold);
+
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Address'),
+        title: Text('Secret Dashboard'),
+
       ),
       body: Container(
         child: ListView(

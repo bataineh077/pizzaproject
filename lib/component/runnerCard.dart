@@ -37,42 +37,50 @@ class _RunnerCardFirstState extends State<RunnerCardFirst> {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        height: this.widget.hight/3,
+
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all( color: Colors.grey,width: 0.3)
         ),
-        child: Column(
+        child: Wrap(
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
                 children: [
-                  Container(
-                    height: 45,
-                    width: 45,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(100)),
-                      //color: Color(0xFF00A1DF),
-                      image: DecorationImage(
-                        image: AssetImage('${widget.image}')
-                      )
+                  Padding(
+                    padding: const EdgeInsets.only(right: 7),
+                    child: Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(100)),
+                        //color: Color(0xFF00A1DF),
+                        image: DecorationImage(
+                          image: AssetImage('${widget.image}')
+                        )
+                      ),
                     ),
                   ),
 
                   Divider(),
 
-                  RichText(
-                    text: TextSpan(
-                        children: [
-                          TextSpan(text: '${widget.name} \n',
-                            style: TextStyle(color: Colors.black.withOpacity(0.75),fontSize: 16),
-                          ),
+              Flexible(
+                  fit: FlexFit.loose,
+                    child: RichText(
+                      text: TextSpan(
+                          children: [
+                            TextSpan(text: '${widget.name} \n',
+                              style: TextStyle(color: Colors.black.withOpacity(0.75),fontSize: 15,),
 
-                          TextSpan(text: '${widget.subName==null?'':widget.subName}',
-                            style: TextStyle(color: Colors.grey,height: 1.7,fontSize: 10),
-                          ),
-                        ]
+                            ),
+
+                            TextSpan(text: '${widget.subName==null?'':widget.subName}',
+                              style: TextStyle(color: Colors.grey,height: 1.7,fontSize: 10),
+                            ),
+                          ]
+                      ),
                     ),
                   ),
 
@@ -98,8 +106,14 @@ class _RunnerCardFirstState extends State<RunnerCardFirst> {
                 children: [
                   Image.asset('assets/location.png',height: 23,width: 23,color: Color(0xFF00A1DF),),
                 //  Icon(OMIcons.map,color: Color(0xFF00A1DF),),
-                  Text('  ${widget.address}',
-                    style: TextStyle(color: Color(0xFF00A1DF)),)
+              Flexible(
+                  fit: FlexFit.loose,
+                    child: Text('  ${widget.address}',
+                      style: TextStyle(color: Color(0xFF00A1DF)),
+                      softWrap: true,
+                      overflow: TextOverflow.fade,
+                    ),
+                  )
 
                 ],
               ),
@@ -115,8 +129,14 @@ class _RunnerCardFirstState extends State<RunnerCardFirst> {
                 children: [
                  // Icon(Icons.domain,color: Colors.brown,size: 17,),
                 //  Image.asset('assets/door.png',height: 23,width: 23,color: Colors.brown,),
-                  Text('${widget.addressNote}',
-                    style: TextStyle(color: Colors.grey,fontSize: 12),),
+                  Flexible(
+                    fit: FlexFit.loose,
+                    child: Text('${widget.addressNote}',
+                      style: TextStyle(color: Colors.grey,fontSize: 12),
+                      softWrap: false,
+                      overflow: TextOverflow.fade,
+                    ),
+                  ),
                   Secound()
 
                 ],
@@ -131,7 +151,8 @@ class _RunnerCardFirstState extends State<RunnerCardFirst> {
                   vertical: 11
               ),
 
-              child: Row(
+              child: Wrap(
+
                 children: [
                   // Icon(Icons.domain,color: Colors.brown,),
                   Text('${widget.note}',

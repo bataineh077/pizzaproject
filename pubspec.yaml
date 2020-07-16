@@ -32,9 +32,8 @@ dependencies:
   outline_material_icons: ^0.1.1
   shared_preferences: ^0.5.8
   maps_launcher: ^1.2.1
-  get_mac: ^0.0.1
-  http:
-  connectivity: ^0.4.9
+  path_provider: ^1.6.11
+  fluttertoast: ^6.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,6 +63,7 @@ flutter:
     - assets/shield.png
     - assets/chat.png
     - assets/phone.png
+    - assets/shout.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
