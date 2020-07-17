@@ -1,5 +1,8 @@
+import 'package:clipboard/clipboard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:pizza/component/runnerCard.dart';
@@ -36,10 +39,15 @@ class _RunningState extends State<Running> {
       ),
 
         actions: [
-      IconButton(
-      icon: Icon(Icons.more_vert),
-      onPressed: (){},
+      GestureDetector(
+        onLongPress: (){
+          _showDialog();
+        },
+        child: IconButton(
+        icon: Icon(Icons.more_vert),
+        onPressed: (){},
     ),
+      ),
         ],
       ),
       body: Container(
@@ -66,7 +74,7 @@ class _RunningState extends State<Running> {
               name: '${widget.resturantName}',
               //subName: '0-50 Favors',
               address: '${widget.address}',
-              addressNote: 'Leave items at the door',
+              addressNote: 'This marchant does not accept call in orders, All orders must be placed in person',
               note: '${widget.orders}',
               secound: true,
               image: 'assets/pin.png',
@@ -74,7 +82,7 @@ class _RunningState extends State<Running> {
 SizedBox(height: MediaQuery.of(context).size.height/5,
 child: FlatButton(
   onPressed: (){
-    _showDialog();
+
   },
   child: Text('' ,style: TextStyle(fontSize: 22),),
 ),
@@ -116,7 +124,7 @@ child: FlatButton(
         return Align(
           alignment: Alignment.center,
           child: Container(
-            height: 300,
+            height: 350,
             child: FutureBuilder(
               future: getPrefs(),
               builder: (context, snapshot) {
@@ -127,28 +135,46 @@ child: FlatButton(
                         itemCount: sharedPrefs.getKeys().length,
                         itemBuilder: (BuildContext context, int index){
                           return
-                            Wrap(
-                              children: [
-                                Wrap(
-                                  children: [
-                                    Text('${snapshot.data[index]} : ',
-                                      style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold ),),
-                                    Text('${sharedPrefs.get(snapshot.data[index])}',
-                                        style: TextStyle(fontSize: 15,color: Colors.grey.shade700 )),
-                                  IconButton(onPressed: (){
-                                 //   print(double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').first));
-                                  //  print(double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').last));
-                                    MapsLauncher.launchQuery(
-                                      //  double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').first) ,
-                                     //   double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').last) ,
-                                        '${sharedPrefs.get(snapshot.data[index])}'
-                                    );
-                                  },
-                                    icon: Icon(Icons.navigation),)
+                            Container(
+                              color: index.isOdd?Colors.cyan:Colors.white,
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('${snapshot.data[index]} : ',
+                                    style: TextStyle(fontSize: 15,fontWeight:FontWeight.bold ),),
+                                  Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Text('${sharedPrefs.get(snapshot.data[index])}',
+                                        style: TextStyle(fontSize: 15,color: Colors.grey.shade700 ),
+                                    overflow: TextOverflow.fade,
+                                    softWrap: false,),
+                                  ),
 
-                                  ],
-                                ),
-                              ],
+                                 Wrap(children: [
+                                   IconButton(onPressed: (){
+                                     //   print(double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').first));
+                                     //  print(double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').last));
+                                     MapsLauncher.launchQuery(
+                                       //  double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').first) ,
+                                       //   double.parse(sharedPrefs.get(snapshot.data[index]).toString().split(',').last) ,
+                                         '${sharedPrefs.get(snapshot.data[index])}'
+                                     );
+                                   },
+                                     icon: Icon(Icons.navigation),),
+
+                                   Container(height: MediaQuery.of(context).size.height/19, child: VerticalDivider(color: Colors.red)),
+
+                                   IconButton(onPressed: (){
+
+                                     FlutterClipboard.copy('${sharedPrefs.get(snapshot.data[index])}')
+                                         .then((value) {
+                                       Fluttertoast.showToast(context,
+                                           msg: 'Copy ${sharedPrefs.get(snapshot.data[index])} to ClipBoard');
+                                     });
+                                   },
+                                     icon: Icon(Icons.content_copy),),
+                                 ],)
+                                ],
+                              ),
                             );
 
                         }

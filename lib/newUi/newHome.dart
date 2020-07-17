@@ -5,6 +5,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pizza/component/addressUsers.dart';
@@ -198,22 +199,35 @@ padding: EdgeInsets.all(0),
 
         children: [
           RestName==null?Text(''):
-          Container(
-            //TODO changable
-          //  height: MediaQuery.of(context).size.height/5.5,
+          GestureDetector(
+            onTap: (){
 
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.symmetric(vertical: BorderSide(color: Colors.grey.shade300))
-              ),
-            child: Flexible(
-              fit: FlexFit.loose,
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Running(address: Restaddress,resturantName: RestName,user: user,
+                      orders: orders,userAddress: userAddress,
+                    );
+                  },
+                ),
+              );
+
+            },
+            child: Container(
+              //TODO changable
+            //  height: MediaQuery.of(context).size.height/5.5,
+
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.symmetric(vertical: BorderSide(color: Colors.grey.shade300))
+                ),
               child: Wrap(
                 children: [
                   Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween
                   ,children: [
-                    Wrap(
+                    Row(
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(10.0),
@@ -232,21 +246,18 @@ padding: EdgeInsets.all(0),
                         ) ,
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Flexible(
-                            fit: FlexFit.loose,
-                            child: RichText(
-                              text: TextSpan(
-                                  children: [
-                                    TextSpan(text: '${RestName} \n',
-                                      style: TextStyle(color: Colors.black87,fontSize: 17),
-                                    ),
+                          child: RichText(
+                            text: TextSpan(
+                                children: [
+                                  TextSpan(text: '${RestName} \n',
+                                    style: TextStyle(color: Colors.black87,fontSize: 17),
+                                  ),
 
-                                    TextSpan(text: 'Running',
-                                      style: TextStyle(color: Color(0xFF00A1DF),height: 1.7,
-                                          fontSize: 14),
-                                    ),
-                                  ]
-                              ),
+                                  TextSpan(text: 'Running',
+                                    style: TextStyle(color: Color(0xFF00A1DF),height: 1.7,
+                                        fontSize: 14),
+                                  ),
+                                ]
                             ),
                           ),
                         ),
@@ -296,7 +307,9 @@ padding: EdgeInsets.all(0),
           SizedBox(height: MediaQuery.of(context).size.height/1.55,)
         ],
       ),
-      bottomSheet: PhysicalModel(elevation: 15,shadowColor: Colors.grey,
+      bottomSheet: PhysicalModel(
+
+        elevation: 15,shadowColor: Colors.grey,
         color: Colors.white,
         child: Container(
           height: MediaQuery.of(context).size.height/8.2,
@@ -344,36 +357,45 @@ Random random = Random();
         return Align(
           alignment: Alignment.center,
           child: Container(
-            height: 300,
+            height: 400,
             child: Material(
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  ListTile(
-                    title: Text('Beecave'),
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                    // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                     setState(() {
-                       RestName = DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name'];
-                       Restaddress = DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['address'];
-                       Future.delayed(Duration(milliseconds: 500));
-                       print(RestName);
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('Beecave'),
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                       setState(() {
+                         RestName = DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name'];
+                         Restaddress = DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['address'];
+                         Future.delayed(Duration(milliseconds: 500));
+                         print(RestName);
 
-                       String order1;
-                       for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                         order1 = FoodMenu.foodMenus[RestName][i];
-                         orders = orders +'\n'+ order1;
-                         print(i);
-                       }
-                    userAddress = AddressUsers.beecave[random.nextInt(AddressUsers.beecave.length)];
-                     //  orders = FoodMenu.foodMenus[RestName][1];
-                       user = faker.person.firstName() +' '+ faker.person.lastName();
+                         String order1;
 
-                       print(orders);
-                     });
-                    },
+                         for(int i = 0;i<random.nextInt(
+                             FoodMenu.foodMenus[RestName].length)+1;i++){
+                           order1 = FoodMenu.foodMenus[RestName][i];
+                           orders = orders +'\n'+ order1;
+                           print('$i ++');
+                         }
+                      userAddress = AddressUsers.beecave[random.nextInt(AddressUsers.beecave.length)];
+                       //  orders = FoodMenu.foodMenus[RestName][1];
+                         user = faker.person.firstName() +' '+ faker.person.lastName();
+
+                         print(orders);
+
+                         Fluttertoast.showToast(context,msg:
+                         'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                             'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                             toastDuration: 5);
+                       });
+                      },
+                    ),
                   ),
                   ListTile(
                     title: Text('LakeWay'),
@@ -388,46 +410,60 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.lakeway[random.nextInt(AddressUsers.lakeway.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
                   ),
-                  ListTile(
-                    title: Text('Lost Creek'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('Lost Creek'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.lostCreek[random.nextInt(DataResCus.lostCreek.length)]['name'];
-                        Restaddress = DataResCus.lostCreek[random.nextInt(DataResCus.lostCreek.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.lostCreek[random.nextInt(DataResCus.lostCreek.length)]['name'];
+                          Restaddress = DataResCus.lostCreek[random.nextInt(DataResCus.lostCreek.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.lostcreek[random.nextInt(AddressUsers.lostcreek.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.lostcreek[random.nextInt(AddressUsers.lostcreek.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
                   ListTile(
                     title: Text('Barton Creek'),
@@ -442,47 +478,61 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.bartoncreek[random.nextInt(AddressUsers.bartoncreek.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
 
                   ),
-                  ListTile(
-                    title: Text('Sunset Valley'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('Sunset Valley'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.sunSetValley[random.nextInt(DataResCus.sunSetValley.length)]['name'];
-                        Restaddress = DataResCus.sunSetValley[random.nextInt(DataResCus.sunSetValley.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.sunSetValley[random.nextInt(DataResCus.sunSetValley.length)]['name'];
+                          Restaddress = DataResCus.sunSetValley[random.nextInt(DataResCus.sunSetValley.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.sunsetvalley[random.nextInt(AddressUsers.sunsetvalley.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.sunsetvalley[random.nextInt(AddressUsers.sunsetvalley.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
 
                   ListTile(
@@ -499,49 +549,62 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.southeastAustin[random.nextInt(AddressUsers.southeastAustin.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
 
                   ),
 
 
-                  ListTile(
-                    title: Text('Daffan'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('Daffan'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.daffan[random.nextInt(DataResCus.daffan.length)]['name'];
-                        Restaddress = DataResCus.daffan[random.nextInt(DataResCus.daffan.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.daffan[random.nextInt(DataResCus.daffan.length)]['name'];
+                          Restaddress = DataResCus.daffan[random.nextInt(DataResCus.daffan.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.daffan[random.nextInt(AddressUsers.daffan.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.daffan[random.nextInt(AddressUsers.daffan.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
 
                   ListTile(
@@ -558,48 +621,62 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.northLamar[random.nextInt(AddressUsers.northLamar.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
 
                   ),
 
-                  ListTile(
-                    title: Text('Pflugerville'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('Pflugerville'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.pflugerville[random.nextInt(DataResCus.pflugerville.length)]['name'];
-                        Restaddress = DataResCus.pflugerville[random.nextInt(DataResCus.pflugerville.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.pflugerville[random.nextInt(DataResCus.pflugerville.length)]['name'];
+                          Restaddress = DataResCus.pflugerville[random.nextInt(DataResCus.pflugerville.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.pflugerville[random.nextInt(AddressUsers.pflugerville.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.pflugerville[random.nextInt(AddressUsers.pflugerville.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
 
                   ListTile(
@@ -616,48 +693,62 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.jollyVille[random.nextInt(AddressUsers.jollyVille.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
 
                   ),
 
-                  ListTile(
-                    title: Text('NorthWest Hills'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('NorthWest Hills'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.northWestHills[random.nextInt(DataResCus.northWestHills.length)]['name'];
-                        Restaddress = DataResCus.northWestHills[random.nextInt(DataResCus.northWestHills.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.northWestHills[random.nextInt(DataResCus.northWestHills.length)]['name'];
+                          Restaddress = DataResCus.northWestHills[random.nextInt(DataResCus.northWestHills.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.northWestHills[random.nextInt(AddressUsers.northWestHills.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.northWestHills[random.nextInt(AddressUsers.northWestHills.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
 
                   ListTile(
@@ -674,48 +765,62 @@ Random random = Random();
                         print(RestName);
 
                         String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
+                        for(int i = 0;i<random.nextInt(
+                            FoodMenu.foodMenus[RestName].length)+1;i++){
                           order1 = FoodMenu.foodMenus[RestName][i];
                           orders = orders +'\n'+ order1;
-                          print(i);
+                          print('$i ++');
                         }
                         userAddress = AddressUsers.kyle[random.nextInt(AddressUsers.kyle.length)];
                         //  orders = FoodMenu.foodMenus[RestName][1];
                         user = faker.person.firstName() +' '+ faker.person.lastName();
 
                         print(orders);
+
+                        Fluttertoast.showToast(context,msg:
+                        'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                            'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                            toastDuration: 5);
                       });
                     },
 
                   ),
 
-                  ListTile(
-                    title: Text('San Marcos'),
+                  Container(color: Colors.blueAccent,
+                    child: ListTile(
+                      title: Text('San Marcos'),
 
-                    onTap: (){
-                      Faker faker = Faker();
-                      orders = '';
-                      // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
-                      setState(() {
-                        RestName = DataResCus.sanMarcos[random.nextInt(DataResCus.sanMarcos.length)]['name'];
-                        Restaddress = DataResCus.sanMarcos[random.nextInt(DataResCus.sanMarcos.length)]['address'];
-                        Future.delayed(Duration(milliseconds: 500));
-                        print(RestName);
+                      onTap: (){
+                        Faker faker = Faker();
+                        orders = '';
+                        // print( DataResCus.beeCave[random.nextInt(DataResCus.beeCave.length)]['name']);
+                        setState(() {
+                          RestName = DataResCus.sanMarcos[random.nextInt(DataResCus.sanMarcos.length)]['name'];
+                          Restaddress = DataResCus.sanMarcos[random.nextInt(DataResCus.sanMarcos.length)]['address'];
+                          Future.delayed(Duration(milliseconds: 500));
+                          print(RestName);
 
-                        String order1;
-                        for(int i = 1;i<=random.nextInt(FoodMenu.foodMenus[RestName].length);i++){
-                          order1 = FoodMenu.foodMenus[RestName][i];
-                          orders = orders +'\n'+ order1;
-                          print(i);
-                        }
-                        userAddress = AddressUsers.sanMarcos[random.nextInt(AddressUsers.sanMarcos.length)];
-                        //  orders = FoodMenu.foodMenus[RestName][1];
-                        user = faker.person.firstName() +' '+ faker.person.lastName();
+                          String order1;
+                          for(int i = 0;i<random.nextInt(
+                              FoodMenu.foodMenus[RestName].length)+1;i++){
+                            order1 = FoodMenu.foodMenus[RestName][i];
+                            orders = orders +'\n'+ order1;
+                            print('$i ++');
+                          }
+                          userAddress = AddressUsers.sanMarcos[random.nextInt(AddressUsers.sanMarcos.length)];
+                          //  orders = FoodMenu.foodMenus[RestName][1];
+                          user = faker.person.firstName() +' '+ faker.person.lastName();
 
-                        print(orders);
-                      });
-                    },
+                          print(orders);
 
+                          Fluttertoast.showToast(context,msg:
+                          'Name User: ${user} \n Address User: ${userAddress}\n Restaurant: ${RestName}\n'
+                              'Restaurant Address: ${Restaddress}\n Order:${orders}',
+                              toastDuration: 5);
+                        });
+                      },
+
+                    ),
                   ),
 
 

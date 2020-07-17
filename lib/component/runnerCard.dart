@@ -45,12 +45,12 @@ class _RunnerCardFirstState extends State<RunnerCardFirst> {
         child: Wrap(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(6.0),
               child: Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 7),
+                    padding: const EdgeInsets.only(right: 1),
                     child: Container(
                       height: 45,
                       width: 45,

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pizza/component/dataRes&Cus.dart';
 import 'package:pizza/component/foodMenu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -69,9 +70,8 @@ class _AddAdressUiState extends State<AddAdressUi> {
 //              leading: Text('Lng',style: TextStyle(fontSize: 18),),
 //            ),
             RaisedButton(onPressed: ()async{
-
+             if(_name.text.length >1 || _lat.text.length >2){
             _getPrefs();
-
 
 
           setState(() {
@@ -80,7 +80,10 @@ class _AddAdressUiState extends State<AddAdressUi> {
 
            // print(' ${sharedPrefs.getKeys()} : ${sharedPrefs.get('ta')}');
 
-          });
+          });}
+             else{
+               Fluttertoast.showToast(context,msg: 'Please insert valid Name & Address');
+             }
 
             },
             color: Colors.blueAccent,

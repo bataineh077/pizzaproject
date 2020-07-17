@@ -34,6 +34,7 @@ dependencies:
   maps_launcher: ^1.2.1
   path_provider: ^1.6.11
   fluttertoast: ^6.0.1
+  clipboard: ^0.1.2+8
 dev_dependencies:
   flutter_test:
     sdk: flutter

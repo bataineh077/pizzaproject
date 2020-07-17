@@ -78,7 +78,7 @@ class _EnterNameState extends State<EnterName> {
 
 
               },
-              child: Text('Submet'),
+              child: Text('Submit'),
             )
           ],
         )

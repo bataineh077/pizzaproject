@@ -53,7 +53,7 @@ class DataResCus{
 
   static var lostCreek= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '3300 Bee Cave Rd, West Lake Hills, TX 78746',
   //'order': FoodMenu.mcDonalds
     },
@@ -86,7 +86,7 @@ class DataResCus{
       "address" : '5033-D US 290 West, Austin, TX 78735'
     },
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '5017 E Hwy 290 W, Austin, TX 78735'
     },
 
@@ -104,7 +104,7 @@ class DataResCus{
 
   static var sunSetValley= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '3909 S Congress Ave, Austin, TX 78704'
     },
     {
@@ -124,7 +124,7 @@ class DataResCus{
 
   static var southEastAustin= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '4501 E Ben White Blvd, Austin, TX 78741'
     },
     {
@@ -132,7 +132,7 @@ class DataResCus{
       "address" : '2308 E Riverside Dr, Austin, TX 78741'
     },
     {
-      "name" :'Raising Can\'s Chicken Fingers',
+      "name" :'Raising Cane\'s Chicken Fingers',
       "address" : '2109 E Riverside Dr, Austin, TX 78741'
     },
     {
@@ -177,7 +177,7 @@ class DataResCus{
       "address" : '2600 W Braker Ln, Austin, TX 78758'
     },
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '12443 Metric Blvd, Austin, TX 78758'
     },
     {
@@ -217,7 +217,7 @@ class DataResCus{
 
   static var johyVille= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '13749 N, US Hwy 183, Austin, TX 78750'
     },
     {
@@ -241,12 +241,12 @@ class DataResCus{
 
   static var northWestHills= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '5762 N Mopac Expy N, Austin, TX 78731'
     },
 
     {
-      "name" :'Taco bell',
+      "name" :'Taco Bell',
       "address" : '7793 Burnet Rd, Austin, TX 78757'
     },
 
@@ -269,12 +269,12 @@ class DataResCus{
 
   static var kyle= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '5325 Kyle Centre Dr, Kyle, TX 78640'
     },
 
     {
-      "name" :'Taco bell',
+      "name" :'Taco Bell',
       "address" : '20347, I-35, Kyle, TX 78640'
     },
 
@@ -297,12 +297,12 @@ class DataResCus{
 
   static var sanMarcos= [
     {
-      "name" :'McDonald\'s',
+      "name" :'McDonalds\'s',
       "address" : '1105 N Interstate 35, San Marcos, TX 78666'
     },
 
     {
-      "name" :'Taco bell',
+      "name" :'Taco Bell',
       "address" : '101 University Dr, San Marcos, TX 78666'
     },
 
